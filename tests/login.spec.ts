@@ -1,6 +1,6 @@
-import {test, expect } from 'playwright/test';
+import { test, expect } from '@playwright/test';
 
-test('valid login goes to inverntory page',async ({page})=>
+test('valid login goes to inventory page',async ({page})=>
 {
     await page.goto('https://www.saucedemo.com/');
     await page.getByPlaceholder('Username').fill('standard_user');
@@ -9,16 +9,16 @@ test('valid login goes to inverntory page',async ({page})=>
     await expect(page).toHaveURL(/inventory/);
 });
 
-// test('invalid login shows error message',async ({page})=>
-// {
-//     await page.goto('https://www.saucedemo.com/');
-//     await page.getByPlaceholder('Username').fill('standard_user');
-//     await page.getByPlaceholder('Password').fill('wrong password');
-//     await page.getByRole('button',{name:'Login'}).click();
-//     await expect(page.getByText('Username and password do not match')).toBeVisible();
-// });
-
 test('invalid login shows error message',async ({page})=>
+{
+    await page.goto('https://www.saucedemo.com/');
+    await page.getByPlaceholder('Username').fill('standard_user');
+    await page.getByPlaceholder('Password').fill('wrong password');
+    await page.getByRole('button',{name:'Login'}).click();
+    await expect(page.getByText('Username and password do not match')).toBeVisible();
+});
+
+test('locked out user sees error message',async ({page})=>
 {
     await page.goto('https://www.saucedemo.com/');
     await page.getByPlaceholder('Username').fill('locked_out_user');
